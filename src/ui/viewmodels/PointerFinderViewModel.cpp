@@ -120,6 +120,7 @@ PointerFinderViewModel::PointerFinderViewModel()
     m_vSearchTypes.Add(ra::etoi(ra::services::SearchType::ThirtyTwoBitBigEndian), L"32-bit BE");
     m_vSearchTypes.Add(ra::etoi(ra::services::SearchType::SixteenBitBigEndianAligned), L"16-bit BE (aligned)");
     m_vSearchTypes.Add(ra::etoi(ra::services::SearchType::ThirtyTwoBitBigEndianAligned), L"32-bit BE (aligned)");
+    m_vSearchTypes.Add(ra::etoi(ra::services::SearchType::ThirtyTwoBitSwizzleAligned), L"32-bit Swizzle");
 
     for (auto& pState : m_vStates)
         pState.SetOwner(this);

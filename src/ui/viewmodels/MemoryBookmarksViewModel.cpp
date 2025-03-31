@@ -62,6 +62,7 @@ MemoryBookmarksViewModel::MemoryBookmarksViewModel() noexcept
     m_vSizes.Add(ra::etoi(MemSize::SixteenBitBigEndian), ra::data::MemSizeString(MemSize::SixteenBitBigEndian));
     m_vSizes.Add(ra::etoi(MemSize::TwentyFourBitBigEndian), ra::data::MemSizeString(MemSize::TwentyFourBitBigEndian));
     m_vSizes.Add(ra::etoi(MemSize::ThirtyTwoBitBigEndian), ra::data::MemSizeString(MemSize::ThirtyTwoBitBigEndian));
+    m_vSizes.Add(ra::etoi(MemSize::ThirtyTwoBitSwizzle), ra::data::MemSizeString(MemSize::ThirtyTwoBitSwizzle));
     m_vSizes.Add(ra::etoi(MemSize::BitCount), ra::data::MemSizeString(MemSize::BitCount));
     m_vSizes.Add(ra::etoi(MemSize::Nibble_Lower), ra::data::MemSizeString(MemSize::Nibble_Lower));
     m_vSizes.Add(ra::etoi(MemSize::Nibble_Upper), ra::data::MemSizeString(MemSize::Nibble_Upper));
@@ -758,11 +759,11 @@ void MemoryBookmarksViewModel::UpdateHasSelection()
         if (pBookmark.IsSelected())
         {
             if (nSelectedItemIndex != -1)
-            {
-                SetValue(HasSelectionProperty, true);
+        {
+            SetValue(HasSelectionProperty, true);
                 SetValue(HasSingleSelectionProperty, false);
                 SetValue(SingleSelectionIndexProperty, -1);
-                return;
+            return;
             }
 
             nSelectedItemIndex = nIndex;
@@ -771,7 +772,7 @@ void MemoryBookmarksViewModel::UpdateHasSelection()
 
     if (nSelectedItemIndex == -1)
     {
-        SetValue(HasSelectionProperty, false);
+    SetValue(HasSelectionProperty, false);
         SetValue(HasSingleSelectionProperty, false);
         SetValue(SingleSelectionIndexProperty, -1);
     }

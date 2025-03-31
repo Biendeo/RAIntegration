@@ -28,6 +28,7 @@ enum class MemSize : uint8_t
     FloatBigEndian,
     Double32,
     Double32BigEndian,
+    ThirtyTwoBitSwizzle,
 
     // extended sizes not supported by rcheevos
     Unknown,
@@ -109,6 +110,7 @@ constexpr unsigned int MemSizeBits(MemSize nSize)
     {
         case MemSize::ThirtyTwoBit:
         case MemSize::ThirtyTwoBitBigEndian:
+        case MemSize::ThirtyTwoBitSwizzle:
         case MemSize::Float:
         case MemSize::FloatBigEndian:
         case MemSize::MBF32:
@@ -163,6 +165,7 @@ constexpr unsigned int MemSizeBytes(MemSize nSize)
     {
         case MemSize::ThirtyTwoBit:
         case MemSize::ThirtyTwoBitBigEndian:
+        case MemSize::ThirtyTwoBitSwizzle:
         case MemSize::Float:
         case MemSize::FloatBigEndian:
         case MemSize::MBF32:
@@ -227,6 +230,8 @@ constexpr const wchar_t* MemSizeString(MemSize nSize)
             return L"24-bit BE";
         case MemSize::ThirtyTwoBitBigEndian:
             return L"32-bit BE";
+        case MemSize::ThirtyTwoBitSwizzle:
+            return L"32-bit Swizzle";
         case MemSize::Float:
             return L"Float";
         case MemSize::MBF32:

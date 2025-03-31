@@ -135,6 +135,9 @@ void AchievementLogicSerializer::AppendOperand(std::string& sBuffer, TriggerOper
         case MemSize::ThirtyTwoBitBigEndian: sBuffer.push_back('G'); break;
         case MemSize::SixteenBitBigEndian:   sBuffer.push_back('I'); break;
         case MemSize::TwentyFourBitBigEndian:sBuffer.push_back('J'); break;
+        case MemSize::ThirtyTwoBitSwizzle:
+            sBuffer.push_back('æ');
+            break;
 
         case MemSize::Float:
             sBuffer.pop_back();

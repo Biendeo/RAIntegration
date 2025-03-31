@@ -30,6 +30,7 @@ enum class SearchType
     Double32BigEndian,
     AsciiText,
     BitCount,
+    ThirtyTwoBitSwizzleAligned
 };
 
 enum class SearchFilterType

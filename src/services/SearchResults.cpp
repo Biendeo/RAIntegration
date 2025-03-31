@@ -1053,6 +1053,32 @@ protected:
     }
 };
 
+class ThirtyTwoBitSwizzleAlignedSearchImpl : public ThirtyTwoBitAlignedSearchImpl
+{
+    MemSize GetMemSize() const noexcept override { return MemSize::ThirtyTwoBitSwizzle; }
+
+    unsigned int BuildValue(const unsigned char* ptr) const noexcept override
+    {
+        GSL_SUPPRESS_F6 Expects(ptr != nullptr);
+        return ptr[2] | (ptr[3] << 8) | (ptr[0] << 16) | (ptr[1] << 24);
+    }
+
+protected:
+    void ApplyConstantFilter(const uint8_t* pBytes, const uint8_t* pBytesStop, const MemBlock& pPreviousBlock,
+                             ComparisonType nComparison, unsigned nConstantValue,
+                             std::vector<ra::ByteAddress>& vMatches) const override
+    {
+        SearchImpl::ApplyConstantFilter(pBytes, pBytesStop, pPreviousBlock, nComparison, nConstantValue, vMatches);
+    }
+
+    void ApplyCompareFilter(const uint8_t* pBytes, const uint8_t* pBytesStop, const MemBlock& pPreviousBlock,
+                            ComparisonType nComparison, unsigned nAdjustment,
+                            std::vector<ra::ByteAddress>& vMatches) const override
+    {
+        SearchImpl::ApplyCompareFilter(pBytes, pBytesStop, pPreviousBlock, nComparison, nAdjustment, vMatches);
+    }
+};
+
 class BitCountSearchImpl : public SearchImpl
 {
 protected:
@@ -1592,6 +1618,7 @@ static SixteenBitBigEndianSearchImpl s_pSixteenBitBigEndianSearchImpl;
 static ThirtyTwoBitBigEndianSearchImpl s_pThirtyTwoBitBigEndianSearchImpl;
 static SixteenBitBigEndianAlignedSearchImpl s_pSixteenBitBigEndianAlignedSearchImpl;
 static ThirtyTwoBitBigEndianAlignedSearchImpl s_pThirtyTwoBitBigEndianAlignedSearchImpl;
+static ThirtyTwoBitSwizzleAlignedSearchImpl s_pThirtyTwoBitSwizzleAlignedSearchImpl;
 static BitCountSearchImpl s_pBitCountSearchImpl;
 static AsciiTextSearchImpl s_pAsciiTextSearchImpl;
 static FloatSearchImpl s_pFloatSearchImpl;
@@ -1782,6 +1809,8 @@ static impl::SearchImpl* GetSearchImpl(SearchType nType) noexcept
             return &ra::services::impl::s_pSixteenBitBigEndianAlignedSearchImpl;
         case SearchType::ThirtyTwoBitBigEndianAligned:
             return &ra::services::impl::s_pThirtyTwoBitBigEndianAlignedSearchImpl;
+        case SearchType::ThirtyTwoBitSwizzleAligned:
+            return &ra::services::impl::s_pThirtyTwoBitSwizzleAlignedSearchImpl;
         case SearchType::BitCount:
             return &ra::services::impl::s_pBitCountSearchImpl;
         case SearchType::AsciiText:
